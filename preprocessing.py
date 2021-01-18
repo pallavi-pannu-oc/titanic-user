@@ -76,23 +76,7 @@ if __name__ == "__main__":
             metadata["description"] = None
             metadata["schema"] = str(schema[i])
             featureset_metadata.append(metadata)
-        
-        # Convert featureset metadata (featurespec) to yaml
-        featureset_metadata = yaml.dump(featureset_metadata, default_flow_style=False)
-        with open("fspec.yaml", "w") as f:
-            f.write(featureset_metadata)
-        # Upload featureset metadata (featurespec)
-        resp = api.upload_featurespec(featureset=fs[k], filepath="fspec.yaml")
-        print("featurespec upload response:", resp)
-        
-        ########--- Commit features ---########
-        # Featureset
-        featureset = DkubeFeatureSet()
-        # Specify features path - mounted as output
-        featureset.update_features_path(path=out_path[k])
-        # Write features - Dataframe
-        featureset.write(df)
-        k =+1
-    # Commit featuresset
-    resp = api.commit_features()
-    print("featureset commit response:", resp)
+    # Commit featuresets
+        resp = api.commit_featureset(name=fs[k], df=df, metadata=featureset_metadata)
+        print("featureset commit response:", resp)
+        k += 1

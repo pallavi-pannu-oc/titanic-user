@@ -17,16 +17,29 @@ test_path = "/titanic-test"
 
 if __name__ == "__main__":
 
+    ########--- Parse for parameters ---########
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--url", dest="url", default=None, type=str, help="setup URL")
+    parser.add_argument("--train_fs", dest="train_fs", required=True, type=str, help="featureset")
+    parser.add_argument("--test_fs", dest="test_fs", required=True, type=str, help="featureset")
+
+    global FLAGS
+    FLAGS, unparsed = parser.parse_known_args()
+    dkubeURL = FLAGS.url
+    train_fs = FLAGS.train_fs
+    test_fs = FLAGS.test_fs
+
     ########--- Read features from input FeatureSet ---########
 
     # Featureset API
-    featureset = DkubeFeatureSet()
-    # Specify featureset path
-    featureset.update_features_path(path=inp_path)
+    authToken = os.getenv("DKUBE_USER_ACCESS_TOKEN")
+    # Get client handle
+    api = DkubeApi(URL=dkubeURL, token=authToken)
 
     # Read features
-    data = featureset.read()  # output: response json with data
-    feature_df = data["data"]
+    feature_df = api.read_featureset(name = train_fs)  # output: data
+
     train, val = train_test_split(feature_df, test_size=0.2)
     ########--- Train ---########
 
@@ -53,11 +66,6 @@ if __name__ == "__main__":
     joblib.dump(model_RFC, filename)
 
     # Writing test data
-    featureset = DkubeFeatureSet()
-    # Specify featureset path
-    featureset.update_features_path(path=test_path)
-    # Read features
-    data = featureset.read()  # output: response json with data
-    test_df = data["data"]
+    test_df = api.read_featureset(name = test_fs)  # output: data
     test_df.to_csv(os.path.join(out_path, "test.csv"), index=False)
     val.to_csv(os.path.join(out_path, "val.csv"), index=False)

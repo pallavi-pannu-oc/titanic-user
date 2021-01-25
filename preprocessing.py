@@ -65,18 +65,7 @@ if __name__ == "__main__":
     # Features
     k = 0
     for df in [train_df, test_df]:
-        # Prepare featurespec - Name, Description, Schema for each feature
-        keys = df.keys()
-        schema = df.dtypes.to_list()
-        featureset_metadata = []
-        print(fs[k], out_path[k])
-        for i in range(len(keys)):
-            metadata = {}
-            metadata["name"] = str(keys[i])
-            metadata["description"] = None
-            metadata["schema"] = str(schema[i])
-            featureset_metadata.append(metadata)
     # Commit featuresets
-        resp = api.commit_featureset(name=fs[k], df=df, metadata=featureset_metadata)
+        resp = api.commit_featureset(name=fs[k], df=df)
         print("featureset commit response:", resp)
         k += 1

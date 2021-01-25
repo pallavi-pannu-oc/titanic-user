@@ -65,7 +65,5 @@ if __name__ == "__main__":
     filename = os.path.join(out_path, "model.joblib")
     joblib.dump(model_RFC, filename)
 
-    # Writing test data
-    test_df = api.read_featureset(name = test_fs)  # output: data
-    test_df.to_csv(os.path.join(out_path, "test.csv"), index=False)
+    # Writing val data
     val.to_csv(os.path.join(out_path, "val.csv"), index=False)

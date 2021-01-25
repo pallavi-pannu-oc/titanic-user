@@ -63,9 +63,9 @@ if __name__ == "__main__":
     # featureset to use
     fs = [FLAGS.train_fs, FLAGS.test_fs]
     # Features
-    k = 0
     for df in [train_df, test_df]:
     # Commit featuresets
-        resp = api.commit_featureset(name=fs[k], df=df)
-        print("featureset commit response:", resp)
-        k += 1
+    resp = api.commit_featureset(name=fs[0], df=train_df)
+    print("train featureset commit response:", resp)
+    resp = api.commit_featureset(name=fs[1], df=test_df)
+    print("test featureset commit response:", resp)

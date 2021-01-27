@@ -64,6 +64,3 @@ if __name__ == "__main__":
     # Exporting model
     filename = os.path.join(out_path, "model.joblib")
     joblib.dump(model_RFC, filename)
-
-    # Writing val data
-    val.to_csv(os.path.join(out_path, "val.csv"), index=False)

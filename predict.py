@@ -2,11 +2,23 @@ import os
 import joblib
 import numpy as np
 import pandas as pd
+import argparse
+from dkube.sdk import *
 
 model_dir = "/model"
+authToken = os.getenv("DKUBE_USER_ACCESS_TOKEN")
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--fs", dest="fs", required=True, type=str, help="featureset")
+
+global FLAGS
+FLAGS, unparsed = parser.parse_known_args()
+fs = FLAGS.fs
+
 
 def predict():
-    test_df = pd.read_csv(os.path.join(model_dir, "test.csv"))
+    api = DkubeApi(token=authToken)
+    test_df = api.read_featureset(name = fs)
     testdf_tmp = test_df
     df = testdf_tmp.drop("PassengerId", 1)
     #df = testdf_tmp.drop(["PassengerId","Survived"], 1)

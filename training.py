@@ -22,13 +22,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--url", dest="url", default=None, type=str, help="setup URL")
     parser.add_argument("--train_fs", dest="train_fs", required=True, type=str, help="featureset")
-    parser.add_argument("--test_fs", dest="test_fs", required=True, type=str, help="featureset")
 
     global FLAGS
     FLAGS, unparsed = parser.parse_known_args()
     dkubeURL = FLAGS.url
     train_fs = FLAGS.train_fs
-    test_fs = FLAGS.test_fs
 
     ########--- Read features from input FeatureSet ---########
 
@@ -64,8 +62,3 @@ if __name__ == "__main__":
     # Exporting model
     filename = os.path.join(out_path, "model.joblib")
     joblib.dump(model_RFC, filename)
-
-    # Writing test data
-    test_df = api.read_featureset(name = test_fs)  # output: data
-    test_df.to_csv(os.path.join(out_path, "test.csv"), index=False)
-    val.to_csv(os.path.join(out_path, "val.csv"), index=False)

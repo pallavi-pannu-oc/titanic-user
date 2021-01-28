@@ -16,6 +16,7 @@ fs = FLAGS.fs
 authToken = fs.token
 
 def predict():
+    print(authToken)
     api = DkubeApi(token=authToken)
     test_df = api.read_featureset(name = fs)
     testdf_tmp = test_df

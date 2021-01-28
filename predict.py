@@ -6,19 +6,11 @@ import argparse
 from dkube.sdk import *
 
 model_dir = "/model"
-
-parser = argparse.ArgumentParser()
-parser.add_argument("--fs", dest="fs", required=True, type=str, help="featureset")
-parser.add_argument("--token", dest="token", required=True, type=str, help="featureset")
-global FLAGS
-FLAGS, unparsed = parser.parse_known_args()
-fs = FLAGS.fs
-authToken = FLAGS.token
+data_dir = "/data"
 
 def predict():
-    print(authToken)
-    api = DkubeApi(token=authToken)
-    test_df = api.read_featureset(name = fs)
+    dkubefs = DkubeFeatureSet()
+    test_df = dkubefs.read_features(path = data_dir)
     testdf_tmp = test_df
     df = testdf_tmp.drop("PassengerId", 1)
     #df = testdf_tmp.drop(["PassengerId","Survived"], 1)

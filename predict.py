@@ -6,13 +6,14 @@ import argparse
 from dkube.sdk import *
 
 model_dir = "/model"
-authToken = os.getenv("DKUBE_USER_ACCESS_TOKEN")
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--fs", dest="fs", required=True, type=str, help="featureset")
+parser.add_argument("--token", dest="token", required=True, type=str, help="featureset")
 global FLAGS
 FLAGS, unparsed = parser.parse_known_args()
 fs = FLAGS.fs
+authToken = fs.token
 
 def predict():
     api = DkubeApi(token=authToken)

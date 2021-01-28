@@ -13,7 +13,7 @@ parser.add_argument("--token", dest="token", required=True, type=str, help="feat
 global FLAGS
 FLAGS, unparsed = parser.parse_known_args()
 fs = FLAGS.fs
-authToken = fs.token
+authToken = FLAGS.token
 
 def predict():
     print(authToken)

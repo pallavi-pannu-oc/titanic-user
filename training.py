@@ -53,8 +53,8 @@ if __name__ == "__main__":
     ########--- Train ---########
 
     # preparing input output pairs
-    y = train["Survived"].values
-    x = train.drop(["PassengerId","Survived"], 1).values
+    y_train = train["Survived"].values
+    x_train = train.drop(["PassengerId","Survived"], 1).values
 
     # Network
 model = Sequential()

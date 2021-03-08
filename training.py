@@ -57,30 +57,30 @@ if __name__ == "__main__":
     x_train = train.drop(["PassengerId","Survived"], 1).values
 
     # Network
-model = Sequential()
-model.add(Dense(12, activation='relu', input_shape=(7,)))
-model.add(Dense(8, activation='relu'))
-model.add(Dense(1, activation='sigmoid'))
-model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
+    model = Sequential()
+    model.add(Dense(12, activation='relu', input_shape=(7,)))
+    model.add(Dense(8, activation='relu'))
+    model.add(Dense(1, activation='sigmoid'))
+    model.compile(loss='binary_crossentropy',optimizer='adam',metrics=['accuracy'])
 
-# mlflow metric logging
-class loggingCallback(keras.callbacks.Callback):
-    def on_epoch_end(self, epoch, logs=None):
-        accuracy_metric = "accuracy"
-        if "acc" in logs:
-            accuracy_metric = "acc"
+    # mlflow metric logging
+    class loggingCallback(keras.callbacks.Callback):
+        def on_epoch_end(self, epoch, logs=None):
+            accuracy_metric = "accuracy"
+            if "acc" in logs:
+                accuracy_metric = "acc"
 
-        log_metric ("train_loss", logs["loss"], step=epoch)
-        log_metric ("train_accuracy", logs[accuracy_metric], step=epoch)
-        log_metric ("val_loss", logs["val_loss"], step=epoch)
-        log_metric ("val_accuracy", logs["val_" + accuracy_metric], step=epoch)
-        # output accuracy metric for katib to collect from stdout
-        print(f"accuracy={round(logs['val_' + accuracy_metric],2)}")
+            log_metric ("train_loss", logs["loss"], step=epoch)
+            log_metric ("train_accuracy", logs[accuracy_metric], step=epoch)
+            log_metric ("val_loss", logs["val_loss"], step=epoch)
+            log_metric ("val_accuracy", logs["val_" + accuracy_metric], step=epoch)
+            # output accuracy metric for katib to collect from stdout
+            print(f"accuracy={round(logs['val_' + accuracy_metric],2)}")
 
-model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=0, validation_split=0.1, 
-        callbacks=[loggingCallback(), tf.keras.callbacks.TensorBoard(log_dir=MODEL_DIR)])
+    model.fit(x_train, y_train, batch_size=batch_size, epochs=epochs, verbose=0, validation_split=0.1, 
+            callbacks=[loggingCallback(), tf.keras.callbacks.TensorBoard(log_dir=MODEL_DIR)])
 
-model.save(MODEL_DIR + 'weights.h5')
-tf.keras.backend.set_learning_phase(0)  # Ignore dropout at inference
-tf.saved_model.save(model,MODEL_DIR + str(1))
+    model.save(MODEL_DIR + 'weights.h5')
+    tf.keras.backend.set_learning_phase(0)  # Ignore dropout at inference
+    tf.saved_model.save(model,MODEL_DIR + str(1))
               

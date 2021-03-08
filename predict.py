@@ -4,7 +4,7 @@ import pandas as pd
 import json, os
 
 model_dir = "/model"
-test_fs_dir= "/test_fs"
+test_fs_dir= "/data"
 metadata = {
     "outputs": [
         {

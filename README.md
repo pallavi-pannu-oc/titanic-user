@@ -1,12 +1,20 @@
 # Titanic example from Kaggle
 ## Project Workflow:
 
-### Step 1 : Create a Project in DKube
+### Step 1: Create Dkube code repo for titanic-owner:
+1. Click on Repos in left pane and then click on +Code.
+2. Name: titanic-owner
+3. Git URL: https://github.com/oneconvergence/titanic-owner.git
+4. Branch: main
+
+### Step 2 : Create a Project in DKube
 1. Click on Projects in left pane in Dkube.
 2. Click on + Create Project.
 3. Give a project name, say titanic-{user}, replace {user} with your username.
+4. Select the evaluation source repo as titanic-owner created in step 1.
+5. Give the evaluation script as python eval.py and click on save button.
 
-### Step 2 :Upload Train & Eval dataset: 
+### Step 3 :Upload Train & Eval dataset: 
 1. Click on Repos in left pane and then click on +dataset.
 2. Details to be filled for train dataset:
    - Name: titanic-train-ds
@@ -45,4 +53,10 @@
    - Select code as titanic-code-user.
    - Select Framework as tensorflow and version as 2.0.0
 3. Go to workspace/titanic-code-user and then run all the cells of pipeline.ipynb file.
+4. Preprocessing, Training and Predict runs will be automatically created in Dkube.
+
+### Results
+1. Go to your project titanic-{user}.
+2. Navigate to the leaderboard to see the results that shows the accuracy and loss metrics.
+3. Training metric results can be viewed from the runs tab in Dkube, with the tag as `dkube-pipeline` and type as `training`.
 

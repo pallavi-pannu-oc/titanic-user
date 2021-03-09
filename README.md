@@ -11,8 +11,9 @@
 1. Click on Projects in left pane in Dkube.
 2. Click on + Create Project.
 3. Give a project name, say titanic-{user}, replace {user} with your username.
-4. Select the evaluation source repo as titanic-owner created in step 1.
-5. Give the evaluation script as python eval.py and click on save button.
+4. Check the enable leaderboard option and click on submit.
+5. Click on the project and select the evaluation source repo as titanic-owner created in step 1.
+6. Give the evaluation script as python eval.py and click on save button.
 
 ### Step 3 :Upload Train & Eval dataset: 
 1. Click on Repos in left pane and then click on +dataset.
@@ -51,8 +52,8 @@
 2. Click on +JupyterLab and then fill the below details:
    - Give a name : titanic-{user}, replace {user} with your username.
    - Select code as titanic-code-user.
-   - Select Framework as tensorflow and version as 2.0.0
-3. Go to workspace/titanic-code-user and then run all the cells of pipeline.ipynb file.
+   - Select Framework as tensorflow and version as 2.0.0 and then click on submit.
+3. Open JupyterLab under the actions tab and go to workspace/titanic-code-user and then run all the cells of pipeline.ipynb file.
 4. Preprocessing, Training and Predict runs will be automatically created in Dkube.
 
 ### Results

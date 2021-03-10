@@ -56,8 +56,41 @@
 3. Open JupyterLab under the actions tab and go to workspace/titanic-code-user and then run all the cells of pipeline.ipynb file.
 4. Preprocessing, Training and Predict runs will be automatically created in Dkube.
 
-### Results
+### Training Results
 1. Go to your project titanic-{user}.
 2. Navigate to the leaderboard to see the results that shows the accuracy and loss metrics.
 3. Training metric results can be viewed from the runs tab in Dkube, with the tag as `dkube-pipeline` and type as `training`.
 
+### Test Inference
+1. Go to the model titanic-model-user and click test inference.
+2. The serving image is ocdr/tensorflowserver:2.0.0.
+3. Check transformer option, and type the transformer script as transformer.py
+4. Choose CPU, and submit.
+5. Go to https://<URL>:32222/inference  
+   - Copy the model serving URL from the test inference tab.  
+   - Copy the auth token from developer settings  
+   - Select model type sk-stock  
+   - Copy the contents of https://raw.githubusercontent.com/pallavi-pannu-oc/titanic-user/main/titanic_sample.csv and save then as CSV, and upload.  
+   - Click predict.
+
+### Release, Publish and Deploy 
+
+1. *Release Model*
+- Click on model name titanic-model-user .
+- Click on Release Action button for latest version of Model.
+- Click on Release button, the release will change to released.
+2. *Publish Model*
+- Click on Publish Model icon under ACTIONS column.
+- Give the publish model name.
+- Click on Transformer checkbox.
+- Change transformer code to transformer.py.
+- Check CPU and click on Submit.
+3. *Deploy Model*
+- Click on Model catalog and select the published model.
+- Click on the deploy model icon  under ACTIONS column.
+- Enter the deploy model name and select CPU and click Submit.
+- The state changes to deployed.
+- Check in Model Serving and wait for the deployed model to change to running state.
+- Deployed Model can used to test the prediction.
+5. *Inference*
+-   Follow the Test Inference step from above.
